@@ -63,8 +63,8 @@
     NRP  : & 6022251006\\
     Dosen Pengampu : & Muhammad Qomaruz Zaman, S.T., M.T., Ph.D.\\
     Class Name : & Kecerdasan Buatan (X) - Rekayasa Elektrik Berkelanjutan \\
-    Youtube Video link : \\
-    GitHub link : \url{https://github.com/Aldivo24/Tugas-3_Muhammad-Aldivo_6022251006_Kecerdasan-Buatan-X-}\\
+    Youtube Video link : & \url{https://youtu.be/Qyu7OEhHuqE}\\
+    GitHub link : & \url{https://github.com/Aldivo24/Tugas-Kecerdasan-Buatan-2026/tree/main}\\
     Overleaf link : & \url{https://www.overleaf.com/read/yczbhxctrycd#d64007}\\
     
 \end{tabular}
@@ -129,6 +129,8 @@ ylabel={Membership}
     \item Besar
 \end{itemize}
 
+\noindent \textbf{Plot Daya Yang dihasilkan}
+
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -155,6 +157,34 @@ ylabel={Membership}
     \item Premium
     \item Platinum
 \end{itemize}
+
+\noindent \textbf{Output Harga Paket}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=10cm,
+height=4cm,
+xmin=0,xmax=4,
+ymin=0,ymax=1.2,
+xlabel={Kategori Paket},
+ylabel={Membership},
+xtick={1,2,3},
+xticklabels={Basic, Premium, Platinum},
+ytick={0,1},
+axis lines=left
+]
+
+% Titik singleton
+\addplot[only marks, mark=*, mark size=3pt] coordinates {
+(1,1)
+(2,1)
+(3,1)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 \subsection{Fungsi Keanggotaan}
 
