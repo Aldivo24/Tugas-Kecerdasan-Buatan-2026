@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{datetime2}
+\usepackage{xparse}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=18mm,
+ }
+
+ 
+ \usepackage{graphicx}
+ \usepackage{titling}
+
+ \title{Assignment 3: FIS for Deciding PV Project Price
+}
+% \author{Muhammad Qomaruz Zaman}
+\date{18 March 2025}
+ 
+ \usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[R]{}
+    \fancyfoot[L]{}
+    \fancyhead[L]{\includegraphics[width=2cm]{ITS_pojok.pdf}}
+    \fancyhead[R]{ \DTMnow}
+}
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+% \usepackage{cmbright} % Change the font by zee
+
+\begin{document}
+
+\maketitle
+
+
+\noindent\begin{tabular}{@{}ll}
+    Nama : & Muhammad Aldivo\\
+    NRP  : & 6022251006\\
+    Dosen Pengampu : & Muhammad Qomaruz Zaman, S.T., M.T., Ph.D.\\
+    Class Name : & Kecerdasan Buatan (X) - Rekayasa Elektrik Berkelanjutan \\
+    Youtube Video link : \\
+    GitHub link : \url{https://github.com/Aldivo24/Tugas-3_Muhammad-Aldivo_6022251006_Kecerdasan-Buatan-X-}\\
+    Overleaf link : & \url{https://www.overleaf.com/read/yczbhxctrycd#d64007}\\
+    
+\end{tabular}
+\vspace{0.8cm}
+
+\noindent\textbf{Tugas 3:}
+Rancang sebuah Fuzzy Inference System (FIS) untuk menentukan harga paket penjualan PV berdasarkan :
+
+\begin{itemize}
+    \item input 1 -- Luasan area PV: sedikit, sedang, banyak
+    \item input 2 -- Daya yang dihasilkan: kecil, menengah, besar
+    \item Output -- Harga paket: minimal 3 kelas (Basic, Premium, Platinum)
+
+\end{itemize}
+
+\noindent Wajib ada aturan contoh :
+\begin{quote}
+IF PV sedikit AND Daya besar THEN Paket = Premium
+\end{quote}
+    \noindent Gunakan Model Sugeno orde-0 (singleton output) dan defuzzifikasi weighted average.\cite{QomaruzZaman}
+
+\section{Perancangan Fuzzy Inference System (FIS)}
+
+Dirancang sebuah sistem fuzzy untuk menentukan harga paket penjualan PV berdasarkan dua input, yaitu luas area PV dan daya yang dihasilkan.
+
+\subsection{Variabel Fuzzy}
+
+\noindent \textbf{Input 1 :Luasan Area PV}
+
+\begin{itemize}
+\item Sedikit
+\item Sedang
+\item Banyak
+\end{itemize}
+
+\noindent \textbf{Plot Luasan Area PV}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=10cm,
+height=5cm,
+xmin=0,xmax=100,
+ymin=0,ymax=1.2,
+xlabel={Area},
+ylabel={Membership}
+]
+
+\addplot[blue,thick] coordinates{(0,1) (25,1) (50,0)};
+\addplot[green,thick] coordinates{(25,0) (50,1) (75,0)};
+\addplot[red,thick] coordinates{(50,0) (75,1) (100,1)};
+
+\legend{Sedikit,Sedang,Banyak}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\noindent\textbf{Input 2: Daya yang Dihasilkan}
+\begin{itemize}
+    \item Kecil
+    \item Menengah
+    \item Besar
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=10cm,
+height=5cm,
+xmin=0,xmax=100,
+ymin=0,ymax=1.2,
+xlabel={Daya},
+ylabel={Membership}
+]
+
+\addplot[blue,thick] coordinates{(0,1) (25,1) (50,0)};
+\addplot[green,thick] coordinates{(25,0) (50,1) (75,0)};
+\addplot[red,thick] coordinates{(50,0) (75,1) (100,1)};
+
+\legend{Kecil,Menengah,Besar}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\noindent\textbf{Output: Harga Paket}
+\begin{itemize}
+    \item Basic
+    \item Premium
+    \item Platinum
+\end{itemize}
+
+\subsection{Fungsi Keanggotaan}
+
+Fungsi Keanggotaan diasumsikan berbentuk segitiga :
+
+\[
+\mu(x)=
+\begin{cases}
+0 & x \le a \\
+\frac{x-a}{b-a} & a < x < b \\
+\frac{c-x}{x-b} & b \le x < c \\
+0 & x \ge c
+\end{cases}
+\]
+
+\subsection{Aturan Fuzzy (Rule Base)}
+Berikut contoh aturan fuzzy yang digunakan:
+
+\begin{enumerate}
+    \item IF Area sedikit AND Daya kecil THEN Paket = Basic
+    \item IF Area sedikit AND Daya menegah THEN Paket = Basic
+    \item IF Area sedikit AND Daya Besar THEN Paket = Premium
+    \item IF Area sedang AND Daya kecil THEN Paket = Basic
+    \item IF Area sedang AND Daya menegah THEN Paket = Premium
+    \item IF Area sedang AND Daya Besar THEN Paket = Platinum
+    \item IF Area banyak AND Daya Kecil THEN Paket = Premium
+    \item IF Area banyak AND Daya Sedang THEN Paket = Platinum
+    \item IF Area banyak AND Daya Besar THEN Paket = Platinum
+\end{enumerate}
+
+\begin{table}[h]
+\centering
+\caption{Rule Base Fuzzy}
+\begin{tabular}{|c|c|c|}
+\hline
+Area PV & Daya & Paket Harga \\ \hline
+Sedikit & Kecil & Basic \\ \hline
+Sedikit & Menengah & Basic \\ \hline
+Sedikit & Besar & Premium \\ \hline
+Sedang & Kecil & Basic \\ \hline
+Sedang & Menengah & Premium \\ \hline
+Seddang & Besar & Platinum \\ \hline
+Banyak & Kecil & Basic \\ \hline
+Banyak & Menengah & Premium \\ \hline
+Banyak & Besar & Platinum \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Penjelasan Pembuatan Rule}
+
+Pembuatan rule didasarkan pada hubungan logis antara luas area PV dan daya yang dihasilkan terhadap nilai paket. Semakain besar luas area PV dan semakin besar daya yang dihasilkan, maka harga paket yang ditawarkan semakin tinggi. Sebaliknya, jika luas area kecil dan daya rendah, maka paket yang dipilih adalah kategori basic. Kategori premium berasa di antara kedua kondisi tersebut sebagai nilai tengah. Dengan demikian, aturan fuzzy disusu berdasarkan prinsip :
+
+\begin{itemize}
+    \item Area kecil + daya kecil $\rightarrow$ paket murah (Basic)
+    \item Area sedang + daya sedang $\rightarrow$ paket menengah (Premium)
+    \item Area banyak + daya Besar $\rightarrow$ paket murah (Platinum)
+
+\end{itemize}
+
+\noindent Pendekatan ini mencerminkan hubungan linier antara kapasitas sistem PV dan harga paket yang ditawarkan.
+
+\subsection{Nilai Output (Singleton)}
+
+Karena menggunakan Sugeno orde-0, maka output berupa konstanta :
+
+\begin{itemize}
+    \item Basic = 1
+    \item Premium = 2
+    \item Platinum = 3
+\end{itemize}
+
+\subsection{Inferensi Fuzzy}
+
+Kekuatan aturan (firing strength) dihitung menggunakan operator AND (minimum):
+
+\[
+w_i = \min(\mu_{Area}, \mu_{Daya})
+\]
+
+\subsection{Defuzzifikasi (Weighted Average)}
+
+Output akhir dihitung dengan metode weighted average :
+
+\[
+z = \frac{\sum w_i z_i}{\sum w_i}
+\]
+
+dengan:
+
+\begin{itemize}
+    \item $w_i$ = firing strength
+    \item $z_i$ = nilai output (singleton)
+
+\end{itemize}
+
+\subsection{Contoh Perhitungan}
+
+Misalkan:
+\begin{itemize}
+    \item Area = Sedang ($\mu = 0.6$)
+    \item Daya = Besar ($\mu = 0.8$)
+\end{itemize}
+
+maka :
+\[
+w = \min(0.6, 0.8) = 0.6
+\]
+
+Jika aturan menghasilkan output Platinum ($z=3$), maka :
+\[
+z = \frac{0.6 \times 3}{0.6} = 3
+\]
+
+Sehingga sistem menghasilkan keputusan paket \textbf{Platinum}
+
+\subsection{Kesimpulan}
+
+Fuzzy Inference System dengan model sugeno orde-0 mampu menentukan kategori paket berdasarkan kombinasi luasi area PV dan daya yang dihasilkan. Metode weighted average menghasilkan output yang cepat dan efisien untuk sistem pengambilan keputusan.
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+
+\end{document}
