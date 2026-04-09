@@ -1,0 +1,300 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{datetime2}
+\usepackage{xparse}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=18mm,
+ }
+
+ 
+ \usepackage{graphicx}
+ \usepackage{titling}
+
+ \title{Assignment 4: Jurnal Review from IEEE Transaction on Fuzzy System
+}
+% \author{Muhammad Qomaruz Zaman}
+\date{18 March 2025}
+ 
+ \usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[R]{}
+    \fancyfoot[L]{}
+    \fancyhead[L]{\includegraphics[width=2cm]{ITS_pojok.pdf}}
+    \fancyhead[R]{ \DTMnow}
+}
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+% \usepackage{cmbright} % Change the font by zee
+
+\begin{document}
+
+\maketitle
+
+
+\noindent\begin{tabular}{@{}ll}
+    Nama : & Muhammad Aldivo\\
+    NRP  : & 6022251006\\
+    Dosen Pengampu : & Muhammad Qomaruz Zaman, S.T., M.T., Ph.D.\\
+    Class Name : & Kecerdasan Buatan (X) - Rekayasa Elektrik Berkelanjutan \\
+    GitHub link : & \url{https://github.com/Aldivo24/Tugas-4_Muhammad-Aldivo_6022251006_Kecerdasan-Buatan-X-/blob/main/Tugas%204}\\
+    Youtube Video link : & \url{https://youtu.be/Qyu7OEhHuqE}\\
+    Overleaf link : & \url{https://www.overleaf.com/read/tcnqvxhbthgd#8ddcae}\\
+    
+\end{tabular}
+\vspace{0.8cm}
+
+\noindent\textbf{Tugas 4:}
+Jurnal Review dari IEEE Transaction on Fuzzy Systems :
+
+
+\section {Identitas Paper}
+
+\textbf{Judul}\\
+CoLLM: Industrial Large--Small Model Collaboration With Fuzzy Decision-Making Agent and Self-Reflection
+
+\vspace{0.3cm}
+\textbf{Penulis}\\
+Haiteng Wang, Lei Ren, Tuo Zhao, Lu Jiao
+
+\vspace{0.3cm}
+\textbf{Jurnal dan Tahun}\\
+IEEE Transactions on Fuzzy Systems, Vol. 34, No. 4, 2026
+
+\vspace{0.3cm}
+\textbf{DOI}\\
+10.1109/TFUZZ.2025.3594229
+
+\vspace{0.3cm}
+\textbf{Bidang dan Kata Kunci}\\
+Artificial Intelligence industri, fuzzy system, time-series, LLM, FNN, self-reflection
+
+
+\section{Latar Belakang}
+
+Perkembangan Large Language Model (LLM) telah memberikan peningkatan signifikan dalam kemampuan analisis data industri, khususnya pada time-series seperti data sensor dan predictive maintenance. Namun, penerapan LLM di lingkungan industri masih menghadapi kendala utama berupa tingginya biaya komputasi serta ketidakpastian hasil prediksi pada data yang kompleks dan noisy.
+
+Untuk mengatasi permasalahan tersebut, paper ini mengusulkan framework CoLLM yang menggabungkan model besar (Large Model) dan model kecil (Small Model) secara kolaboratif. Pendekatan ini menggunakan fuzzy decision-making agent berbasis Fuzzy Neural Network (FNN) untuk menentukan tingkat kepercayaan terhadap hasil prediksi, serta mekanisme self-reflection untuk meningkatkan keandalan output model besar.
+
+Hasil penelitian menunjukkan bahwa framework ini mampu meningkatkan efisiensi komputasi secara signifikan hingga 14.54 kali tanpa mengorbankan akurasi. Dengan demikian, CoLLM menjadi solusi yang efektif untuk implementasi kecerdasan buatan pada sistem industri yang membutuhkan keseimbangan antara performa dan efisiensi.
+
+\section{Metodologi}
+
+Metodologi dalam paper ini menggunakan pendekatan kolaboratif antara Large Model (LM) dan Small Model (SM) yang disebut CoLLM. Framework ini dirancang untuk meningkatkan efisiensi komputasi sekaligus mempertahankan akurasi dalam pengolahan data time-series industri.
+
+Tahap pertama adalah \textit{fast inference} menggunakan Small Model (SM). Model ini melakukan prediksi awal terhadap data input dengan biaya komputasi yang rendah dan waktu yang cepat. Hasil prediksi dari SM kemudian digunakan sebagai dasar evaluasi untuk menentukan apakah diperlukan pemrosesan lebih lanjut.
+
+Tahap kedua adalah penggunaan \textit{Fuzzy Decision-Making Agent} berbasis Fuzzy Neural Network (FNN). FNN menghitung nilai \textit{confidence score} dari hasil prediksi SM. Jika nilai kepercayaan tinggi, maka hasil SM langsung digunakan. Sebaliknya, jika nilai kepercayaan rendah, maka sistem akan mengaktifkan Large Model (LM) untuk melakukan analisis yang lebih mendalam.
+
+Tahap ketiga adalah \textit{deep inference} menggunakan Large Model (LM). Model ini memiliki kemampuan generalisasi yang lebih baik sehingga dapat menangani data yang lebih kompleks. Namun, untuk mengatasi potensi ketidakakuratan, digunakan mekanisme \textit{self-reflection}.
+
+Pada tahap \textit{self-reflection}, LM mengevaluasi tingkat kepercayaan terhadap hasil prediksinya sendiri. Jika hasilnya dianggap kurang reliabel, maka dilakukan kombinasi antara hasil SM dan LM untuk menghasilkan prediksi akhir yang lebih akurat.
+
+Secara keseluruhan, metodologi ini bekerja secara adaptif dengan memilih model yang paling sesuai berdasarkan kompleksitas data, sehingga mampu mengoptimalkan keseimbangan antara efisiensi dan akurasi dalam aplikasi industri.
+
+\section{Dataset dan Eksperimen}
+
+Penelitian ini menggunakan dataset CMAPSS (Commercial Modular Aero-Propulsion System Simulation) yang dikembangkan oleh NASA untuk prediksi Remaining Useful Life (RUL) pada mesin turbofan. Dataset ini berisi data time-series dari sensor mesin yang merekam kondisi operasional hingga terjadi kerusakan.
+
+Dalam eksperimen ini digunakan dua subset dataset, yaitu FD001 dan FD003. Data diproses menggunakan metode normalisasi dan teknik sliding window untuk membentuk input model. Evaluasi performa dilakukan menggunakan metrik RMSE (Root Mean Square Error) dan MAE (Mean Absolute Error), serta efisiensi komputasi menggunakan FLOPs.
+
+Hasil eksperimen menunjukkan bahwa metode CoLLM mampu meningkatkan efisiensi komputasi secara signifikan tanpa mengurangi akurasi prediksi.
+
+\section{Grafik Hasil Eksperimen}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Perbandingan RMSE Model},
+    xlabel={Model},
+    ylabel={RMSE},
+    ymin=10, ymax=13,
+    xtick=data,
+    xticklabels={SM, LM, CoLLM-A, CoLLM-B, CoLLM-C},
+    ymajorgrids=true,
+    grid style=dashed,
+    width=12cm,
+    height=8cm
+]
+
+\addplot coordinates {
+    (0,12.80)
+    (1,12.40)
+    (2,12.45)
+    (3,12.38)
+    (4,12.33)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Perbandingan Efisiensi (Speed-up)},
+    xlabel={Model},
+    ylabel={Speed-up (x)},
+    ymin=0, ymax=15,
+    xtick=data,
+    xticklabels={LM, CoLLM-A, CoLLM-B, CoLLM-C},
+    ymajorgrids=true,
+    grid style=dashed,
+    width=12cm,
+    height=8cm
+]
+
+\addplot coordinates {
+    (0,1)
+    (1,3.88)
+    (2,8.50)
+    (3,14.54)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Hasil dan Analisis}
+
+Berdasarkan hasil eksperimen pada dataset CMAPSS (FD001 dan FD003), metode CoLLM menunjukkan peningkatan performa yang signifikan dibandingkan penggunaan model tunggal, baik Small Model (SM) maupun Large Model (LM).
+
+Dari sisi akurasi, CoLLM mampu mempertahankan bahkan meningkatkan nilai RMSE dan MAE dibandingkan baseline. Hal ini menunjukkan bahwa pendekatan kolaboratif antara SM dan LM tidak mengurangi kualitas prediksi, meskipun sebagian besar inferensi dilakukan oleh model kecil yang lebih ringan.
+
+Dari sisi efisiensi, CoLLM berhasil mengurangi beban komputasi secara signifikan dengan peningkatan kecepatan hingga lebih dari 14 kali dibandingkan LM murni. Hal ini disebabkan oleh mekanisme seleksi adaptif yang hanya mengaktifkan LM pada data dengan tingkat kompleksitas tinggi.
+
+Analisis lebih lanjut menunjukkan bahwa SM memiliki keunggulan dalam menangkap pola lokal dan perubahan kecil pada tahap awal degradasi, sedangkan LM lebih unggul dalam memahami pola jangka panjang dan tren global. Kombinasi keduanya melalui mekanisme fuzzy decision-making menghasilkan sistem yang lebih seimbang dan adaptif.
+
+Selain itu, penggunaan self-reflection terbukti mampu meningkatkan keandalan prediksi. Ketika LM menghasilkan prediksi dengan tingkat kepercayaan rendah, sistem akan memanfaatkan hasil dari SM untuk melakukan koreksi, sehingga mengurangi risiko kesalahan besar.
+
+Secara keseluruhan, hasil penelitian ini menunjukkan bahwa pendekatan CoLLM efektif dalam mengoptimalkan trade-off antara akurasi dan efisiensi, sehingga sangat cocok diterapkan pada sistem industri yang memiliki keterbatasan sumber daya komputasi.
+
+\begin{table}[h]
+\centering
+\caption{Perbandingan Hasil Model}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Model & RMSE & MAE & Speed-up \\ \hline
+SM & 12.80 & 9.50 & 1x \\ \hline
+LM & 12.40 & 9.00 & 1x \\ \hline
+CoLLM-A & 12.45 & 9.13 & 3.88x \\ \hline
+CoLLM-B & 12.38 & 9.00 & 8.50x \\ \hline
+CoLLM-C & 12.33 & 8.86 & 14.54x \\ \hline
+\end{tabular}
+\end{table}
+
+\section{GAP Analysis}
+
+Meskipun penelitian terkait Large Language Model (LLM) telah menunjukkan performa yang sangat baik dalam berbagai tugas analisis data, penerapannya pada bidang industri masih menghadapi sejumlah keterbatasan. Salah satu permasalahan utama adalah tingginya biaya komputasi serta kebutuhan sumber daya yang besar, sehingga kurang efisien untuk implementasi real-time atau pada perangkat dengan keterbatasan kapasitas.
+
+Penelitian sebelumnya umumnya menggunakan pendekatan berbasis task-level collaboration atau langsung mengandalkan model besar untuk seluruh proses inferensi. Pendekatan ini belum mampu mengakomodasi variasi kompleksitas pada setiap sampel data, khususnya pada data time-series industri yang bersifat dinamis dan memiliki tingkat ketidakpastian tinggi.
+
+Selain itu, metode yang ada masih terbatas dalam mekanisme evaluasi kepercayaan (confidence) terhadap hasil prediksi. Banyak model belum mampu secara adaptif menentukan kapan harus menggunakan model yang lebih kompleks atau bagaimana mengoreksi hasil prediksi yang kurang akurat.
+
+Berdasarkan gap tersebut, penelitian ini menawarkan solusi melalui framework CoLLM yang mengadopsi pendekatan sample-level collaboration antara Small Model (SM) dan Large Model (LM). Dengan memanfaatkan fuzzy decision-making berbasis Fuzzy Neural Network (FNN), sistem dapat secara adaptif memilih model yang paling sesuai berdasarkan tingkat kompleksitas data.
+
+Selain itu, integrasi mekanisme self-reflection memungkinkan model untuk mengevaluasi dan memperbaiki hasil prediksi secara dinamis, sehingga meningkatkan keandalan sistem secara keseluruhan. Dengan demikian, penelitian ini mengisi celah pada efisiensi, adaptivitas, dan reliability dalam penggunaan model AI di lingkungan industri.
+
+\section{Kelebihan dan Kekurangan}
+
+\textbf{Kelebihan}
+\begin{itemize}
+    \item Mampu meningkatkan efisiensi komputasi secara signifikan dengan mengurangi penggunaan Large Model (LM).
+    \item Pendekatan adaptif berbasis sample-level memungkinkan pemilihan model yang lebih tepat sesuai kompleksitas data.
+    \item Fuzzy Decision-Making Agent efektif dalam menangani ketidakpastian pada data time-series industri.
+    \item Mekanisme self-reflection meningkatkan keandalan prediksi dengan mengoreksi hasil yang kurang akurat.
+    \item Menggabungkan keunggulan Small Model (cepat dan ringan) dan Large Model (akurat dan generalisasi tinggi).
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Kekurangan}
+\begin{itemize}
+    \item Arsitektur sistem relatif kompleks karena melibatkan beberapa komponen (SM, LM, FNN, dan self-reflection).
+    \item Membutuhkan proses tuning parameter seperti threshold yang cukup sensitif terhadap performa.
+    \item Ketergantungan pada kualitas data, terutama pada data industri yang memiliki noise tinggi.
+    \item Evaluasi masih terbatas pada dataset tertentu sehingga generalisasi ke kasus lain perlu diuji lebih lanjut.
+    \item Implementasi real-time pada perangkat dengan resource terbatas masih memerlukan optimasi tambahan.
+\end{itemize}
+
+\section{Kontribusi Ilmiah}
+
+Penelitian ini memberikan beberapa kontribusi ilmiah penting dalam pengembangan kecerdasan buatan di bidang industri, khususnya pada pengolahan data time-series.
+
+Pertama, penelitian ini mengusulkan framework kolaboratif antara Large Model (LM) dan Small Model (SM) berbasis sample-level, yang memungkinkan pemilihan model secara adaptif berdasarkan kompleksitas masing-masing data. Pendekatan ini lebih fleksibel dibandingkan metode sebelumnya yang umumnya berbasis task-level.
+
+Kedua, diperkenalkan penggunaan Fuzzy Decision-Making Agent berbasis Fuzzy Neural Network (FNN) untuk mengukur tingkat ketidakpastian dan kepercayaan hasil prediksi. Pendekatan ini efektif dalam menangani karakteristik data industri yang bersifat dinamis dan noisy.
+
+Ketiga, penelitian ini mengintegrasikan mekanisme self-reflection pada Large Model untuk mengevaluasi dan meningkatkan keandalan hasil prediksi. Mekanisme ini memungkinkan sistem melakukan koreksi secara otomatis ketika tingkat kepercayaan rendah.
+
+Keempat, penelitian ini berhasil menunjukkan bahwa kolaborasi antara LM dan SM mampu meningkatkan efisiensi komputasi secara signifikan tanpa mengorbankan akurasi, sehingga memberikan solusi praktis untuk implementasi AI pada sistem industri dengan keterbatasan sumber daya.
+
+Secara keseluruhan, kontribusi penelitian ini terletak pada pengembangan metode yang adaptif, efisien, dan reliabel dalam menggabungkan kekuatan berbagai model kecerdasan buatan untuk aplikasi industri.
+
+\section{Kesimpulan}
+
+Penelitian ini mengusulkan framework CoLLM sebagai pendekatan kolaboratif antara Large Model (LM) dan Small Model (SM) untuk meningkatkan efisiensi dan keandalan dalam pengolahan data time-series industri. Dengan memanfaatkan Fuzzy Decision-Making Agent berbasis Fuzzy Neural Network (FNN), sistem mampu secara adaptif menentukan model yang paling sesuai berdasarkan tingkat kompleksitas data.
+
+Selain itu, integrasi mekanisme self-reflection memungkinkan peningkatan kualitas prediksi dengan cara mengevaluasi dan memperbaiki hasil yang kurang akurat. Hasil eksperimen menunjukkan bahwa metode ini mampu meningkatkan efisiensi komputasi secara signifikan hingga lebih dari 14 kali tanpa mengorbankan akurasi.
+
+Secara keseluruhan, CoLLM menawarkan solusi yang efektif untuk mengatasi keterbatasan penggunaan model besar dalam lingkungan industri, khususnya dalam hal efisiensi, adaptivitas, dan reliability. Pendekatan ini memiliki potensi besar untuk dikembangkan lebih lanjut pada berbagai aplikasi industri berbasis kecerdasan buatan.
+
+\section{Rekomendasi Pengembangan}
+
+Berdasarkan hasil penelitian, terdapat beberapa peluang pengembangan lebih lanjut untuk meningkatkan performa dan implementasi framework CoLLM pada lingkungan industri.
+
+Pertama, pengembangan integrasi antara sistem cloud dan edge computing perlu dilakukan untuk mengoptimalkan distribusi beban komputasi antara Large Model (LM) dan Small Model (SM), sehingga dapat meningkatkan efisiensi dan mengurangi latency.
+
+Kedua, diperlukan peningkatan metode estimasi ketidakpastian (uncertainty estimation) agar proses pengambilan keputusan dalam pemilihan model menjadi lebih akurat dan robust terhadap variasi data.
+
+Ketiga, penelitian selanjutnya dapat mengeksplorasi penggunaan teknik fusion yang lebih kompleks dibandingkan metode rata-rata sederhana, seperti weighted ensemble atau attention-based fusion, untuk meningkatkan kualitas prediksi akhir.
+
+Keempat, perlu dilakukan pengujian pada berbagai jenis dataset industri yang lebih beragam untuk memastikan kemampuan generalisasi model dalam berbagai kondisi operasional.
+
+Kelima, optimalisasi implementasi real-time pada perangkat dengan keterbatasan sumber daya juga menjadi aspek penting agar framework ini dapat diterapkan secara luas di lingkungan industri.
+
+Dengan pengembangan lebih lanjut, diharapkan framework CoLLM dapat menjadi solusi yang lebih matang dan siap diimplementasikan secara praktis dalam berbagai aplikasi industri berbasis kecerdasan buatan.
+
+\section{Saran}
+Pengembangan selanjutnya dapat mencakup:
+\begin{itemize}
+    \item Integrasi dengan sistem cloud-edge
+    \item Pengembangan metode uncertainty yang lebih akurat
+    \item Pengujian pada dataset yang lebih beragam
+\end{itemize}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+
+\end{document}
